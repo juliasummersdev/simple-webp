@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple WebP Converter
  * Plugin URI: https://juliasummers.dev
- * Description: Automatically converts uploaded images (JPG/PNG) to WebP, serves WebP in place of JPG/PNG throughout the site, and gives admins full visibility and control over the conversion process.
+ * Description: Automatically converts uploaded images (JPG/PNG) to WebP and serves WebP in place of JPG/PNG throughout your site.
  * Version: 0.1
  * Author: Julia Summers
  * Author URI: https://juliasummers.dev

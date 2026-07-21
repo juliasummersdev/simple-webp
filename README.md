@@ -1,6 +1,6 @@
 # Simple WebP Converter
 
-A comprehensive WordPress plugin that automatically converts uploaded images (JPG/PNG) to WebP format, serves WebP files throughout your site.
+A comprehensive WordPress plugin that automatically converts uploaded images (JPG/PNG) to WebP format and serves WebP files throughout your site.
 
 ![Version](https://img.shields.io/badge/version-0.1-blue.svg)
 ![WordPress](https://img.shields.io/badge/wordpress-5.8%2B-blue.svg)
@@ -9,7 +9,7 @@ A comprehensive WordPress plugin that automatically converts uploaded images (JP
 
 ---
 
-## ✨ Features
+## Features
 
 ### Core Functionality
 - **Automatic conversion** on image upload for all registered image sizes (thumbnail, medium, large, custom)
@@ -21,7 +21,7 @@ A comprehensive WordPress plugin that automatically converts uploaded images (JP
 - **Automatic cleanup** when attachments are deleted
 
 ### Admin Dashboard
-- **Comprehensive settings page** at Settings → WebP Converter
+- **Comprehensive settings page** at Tools → WebP Converter
 - **Real-time statistics** showing:
   - Total conversions
   - Successful conversions
@@ -78,7 +78,7 @@ A comprehensive WordPress plugin that automatically converts uploaded images (JP
 
 ---
 
-## 📋 Requirements
+## Requirements
 
 | Requirement | Minimum Version | Notes |
 |-------------|----------------|-------|
@@ -91,14 +91,14 @@ The plugin automatically checks your server environment and displays detailed in
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### From GitHub
 
 1. Download the latest release or clone this repository
 2. Upload the `simple-webp` folder to `/wp-content/plugins/`
 3. Activate the plugin through the Plugins menu in WordPress
-4. Go to **Settings → WebP Converter** to configure
+4. Go to **Tools → WebP Converter** to configure
 
 ### First-Time Setup
 
@@ -109,7 +109,7 @@ The plugin automatically checks your server environment and displays detailed in
 
 ---
 
-## 🎯 Usage
+## Usage
 
 ### Automatic Conversion
 
@@ -142,13 +142,13 @@ Once activated, the plugin automatically converts new image uploads to WebP. All
 ### Bulk Operations
 
 **Regenerate All Images:**
-- Navigate to Settings → WebP Converter
+- Navigate to Tools → WebP Converter
 - Click **"Regenerate All Images"**
 - Monitor real-time progress
 - Receive completion notice when done
 
 **Delete All WebP Images:**
-- Navigate to Settings → WebP Converter
+- Navigate to Tools → WebP Converter
 - Scroll to Bulk Actions
 - Click **"Delete All WebP Images"**
 - Confirm twice (safety measure)
@@ -156,7 +156,7 @@ Once activated, the plugin automatically converts new image uploads to WebP. All
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 ### WebP Quality
 
@@ -180,7 +180,7 @@ Statistics are calculated by scanning actual files in your uploads directory, en
 
 ---
 
-## 🛠️ Technical Details
+## Technical Details
 
 ### Function Prefix
 
@@ -211,7 +211,6 @@ simple-webp/
 │       ├── block-controls.js        # Gutenberg integration
 │       ├── deactivation.js          # Deactivation modal
 │       └── media-library.js         # Media library features
-└── README.md                        # This file
 ```
 
 ### Key Functions
@@ -262,7 +261,7 @@ add_filter('jsdev_simple_webp_allowed_mime_types', function($types) {
 
 ---
 
-## ❓ FAQ
+## FAQ
 
 **Q: Does this delete my original JPG/PNG files?**
 A: No. Original files are always preserved. WebP files are created alongside them. Only WebP files are deleted (on attachment deletion or optional deactivation cleanup).
@@ -274,7 +273,7 @@ A: The plugin only serves WebP where the file exists. Modern browsers (Chrome, F
 A: No. Conversion happens on upload or via manual actions, not on page load. Front-end performance is improved because WebP files are smaller.
 
 **Q: Can I convert existing images?**
-A: Yes. Use the "Regenerate All Images" button in Settings → WebP Converter.
+A: Yes. Use the "Regenerate All Images" button in Tools → WebP Converter.
 
 **Q: What quality setting should I use?**
 A: 80 (default) provides an excellent balance. For photos, 75-85 works well. For graphics with text, use 85-95.
@@ -283,14 +282,14 @@ A: 80 (default) provides an excellent balance. For photos, 75-85 works well. For
 A: Typically 25-35% for photos and 50-75% for graphics. Actual savings depend on image content and quality settings.
 
 **Q: Can I undo conversions?**
-A: Yes. Use "Delete All WebP Images" in Settings → WebP Converter. Original images are never deleted.
+A: Yes. Use "Delete All WebP Images" in Tools → WebP Converter. Original images are never deleted.
 
 **Q: Does it work with multisite?**
 A: Yes, each site in a multisite network has its own settings and conversions.
 
 ---
 
-## 🐛 Known Issues
+## Known Issues
 
 - Large media libraries (1000+ images) may require multiple attempts for full regeneration due to PHP timeouts
 - CDN and remote storage plugins may require additional configuration
@@ -298,7 +297,7 @@ A: Yes, each site in a multisite network has its own settings and conversions.
 
 ---
 
-## 🔮 Roadmap
+## Roadmap
 
 Planned features for future releases:
 
@@ -314,7 +313,7 @@ Planned features for future releases:
 
 ---
 
-## 📄 License
+## License
 
 This plugin is licensed under the GPL v2 or later.
 
@@ -335,22 +334,7 @@ GNU General Public License for more details.
 
 ---
 
-## 👩‍💻 Author
-
-**Julia Summers**
-Website: [juliasummers.dev](https://juliasummers.dev)
-
----
-
-## 🙏 Acknowledgments
-
-- Core media-handling logic inspired by WordPress core's `wp-admin/includes/media.php`
-- Pagination styling follows WordPress admin design patterns
-- Built with modern JavaScript (ES6+) and PHP 7.4+ features
-
----
-
-## 📊 Changelog
+## Changelog
 
 ### Version 0.1 (Initial Release)
 
@@ -406,14 +390,3 @@ Website: [juliasummers.dev](https://juliasummers.dev)
 - Responsive design for all devices
 - Smooth transitions and animations
 
----
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
-
----
-
-## ⭐ Show Your Support
-
-Give a ⭐️ if this project helped you!

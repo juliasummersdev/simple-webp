@@ -2,10 +2,6 @@
  * Admin styles for Simple WebP Converter
  */
 
-.jsdev-webp-admin {
-    max-width: 1200px;
-}
-
 .jsdev-webp-dashboard {
     display: grid;
     gap: 20px;
