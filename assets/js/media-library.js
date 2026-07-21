@@ -52,10 +52,8 @@
                             // Show success message in modal
                             resultContainer.html('<div class="notice notice-success inline"><p>' + response.data.message + '</p></div>');
 
-                            // Reload the attachment details to show updated stats
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1500);
+                            // Update button state
+                            button.prop('disabled', false).text('Reconvert to WebP');
                         } else {
                             // Update the status cell in list view
                             resultContainer.html('<span style="color: #28a745; font-weight: bold;">✓ Converted</span><br><small style="color: #666;">' + response.data.message + '</small>');
@@ -119,16 +117,20 @@
                 if (processed >= imageIds.length) {
                     // All done
                     button.prop('disabled', false).text(originalText);
+
+                    // Update the meta box to show conversion status for each image
+                    postImagesContainer.find('.jsdev-webp-image-item').each(function() {
+                        const item = $(this);
+                        const statusSpan = item.find('.jsdev-webp-image-status');
+                        statusSpan.html('<span style="color: #28a745; font-weight: bold;">✓ Converted</span>');
+                    });
+
                     resultContainer.html(
                         '<div class="notice notice-success inline"><p>' +
-                        'Completed! ' + successful + ' converted successfully, ' + failed + ' failed.' +
+                        'Completed! ' + successful + ' converted successfully' +
+                        (failed > 0 ? ', ' + failed + ' failed' : '') + '.' +
                         '</p></div>'
                     );
-
-                    // Reload page after 2 seconds to show updated status
-                    setTimeout(function() {
-                        location.reload();
-                    }, 2000);
                     return;
                 }
 
@@ -169,6 +171,75 @@
             const action = $(this).siblings('select').val();
             // You can add custom bulk actions here if needed
         });
+
+        // Add WebP conversion to WordPress Media Library Modal
+        if (typeof wp !== 'undefined' && wp.media) {
+            wp.media.view.Attachment.Details.TwoColumn = wp.media.view.Attachment.Details.TwoColumn.extend({
+                template: function(view) {
+                    const template = wp.media.template('attachment-details-two-column');
+                    const output = template(view);
+
+                    // Only add button for JPG/PNG images
+                    if (view.type === 'image' && view.subtype && ['jpeg', 'png'].includes(view.subtype)) {
+                        const $output = $(output);
+                        const $detailsDiv = $output.find('.attachment-info');
+
+                        if ($detailsDiv.length) {
+                            const convertButton = $('<button type="button" class="button button-secondary jsdev-webp-modal-convert" data-attachment-id="' + view.id + '" style="margin-top: 10px; width: 100%;">Convert to WebP</button>');
+                            const resultDiv = $('<div class="jsdev-webp-modal-result" style="margin-top: 10px;"></div>');
+
+                            $detailsDiv.append(convertButton);
+                            $detailsDiv.append(resultDiv);
+
+                            return $output.prop('outerHTML');
+                        }
+                    }
+
+                    return output;
+                }
+            });
+
+            // Handle conversion in media modal
+            $(document).on('click', '.jsdev-webp-modal-convert', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const button = $(this);
+                const attachmentId = button.data('attachment-id');
+                const resultContainer = button.siblings('.jsdev-webp-modal-result');
+                const originalText = button.text();
+
+                // Disable button and show loading
+                button.prop('disabled', true).text('Converting...');
+                resultContainer.empty();
+
+                // Send AJAX request
+                $.ajax({
+                    url: jsdevWebpMedia.ajaxUrl,
+                    type: 'POST',
+                    data: {
+                        action: 'jsdev_webp_convert_single',
+                        nonce: jsdevWebpMedia.nonce,
+                        attachment_id: attachmentId
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Show success message
+                            resultContainer.html('<div style="padding: 10px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; color: #155724; margin-top: 10px;"><strong>Success!</strong> ' + response.data.message + '</div>');
+                            button.prop('disabled', false).text('Reconvert to WebP');
+                        } else {
+                            // Show error
+                            resultContainer.html('<div style="padding: 10px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px; color: #721c24; margin-top: 10px;">Error: ' + (response.data.message || 'Conversion failed.') + '</div>');
+                            button.prop('disabled', false).text(originalText);
+                        }
+                    },
+                    error: function() {
+                        resultContainer.html('<div style="padding: 10px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px; color: #721c24; margin-top: 10px;">An error occurred. Please try again.</div>');
+                        button.prop('disabled', false).text(originalText);
+                    }
+                });
+            });
+        }
     });
 
 })(jQuery);

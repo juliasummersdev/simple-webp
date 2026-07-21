@@ -1,6 +1,6 @@
 # Simple WebP Converter
 
-A comprehensive WordPress plugin that automatically converts uploaded images (JPG/PNG) to WebP format, serves WebP files throughout your site, and provides complete admin control over the conversion process.
+A comprehensive WordPress plugin that automatically converts uploaded images (JPG/PNG) to WebP format, serves WebP files throughout your site.
 
 ![Version](https://img.shields.io/badge/version-0.1-blue.svg)
 ![WordPress](https://img.shields.io/badge/wordpress-5.8%2B-blue.svg)

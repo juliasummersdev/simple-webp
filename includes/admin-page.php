@@ -161,10 +161,10 @@ function jsdev_simple_webp_render_admin_page() {
                     <?php settings_fields('jsdev_webp_settings'); ?>
                     <table class="form-table">
                         <tr>
-                            <th scope="row">
+                            <th scope="row" class="form-table-item">
                                 <label for="jsdev_simple_webp_webp_quality">WebP Quality</label>
                             </th>
-                            <td>
+                            <td class="form-table-item">
                                 <input type="number"
                                        id="jsdev_simple_webp_webp_quality"
                                        name="jsdev_simple_webp_webp_quality"
@@ -190,7 +190,7 @@ function jsdev_simple_webp_render_admin_page() {
             <div class="jsdev-webp-card">
                 <h2>Bulk Actions</h2>
 
-                <div class="jsdev-webp-bulk-actions" style="margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #e5e5e5;">
+                <div class="jsdev-webp-bulk-actions" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
                     <h3 style="margin-top: 0;">Regenerate All Images</h3>
                     <p>Generate WebP versions for all existing images in your media library.</p>
                     <button type="button" class="button button-primary" id="jsdev-webp-regenerate-all">
