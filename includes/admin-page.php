@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
  */
 add_action('admin_menu', 'jsdev_simple_webp_add_admin_menu');
 function jsdev_simple_webp_add_admin_menu() {
-    add_options_page(
+    add_management_page(
         'Simple WebP Converter',
         'WebP Converter',
         'manage_options',

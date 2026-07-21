@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('JSDEV_WEBP_VERSION', '1.0.0');
+define('JSDEV_WEBP_VERSION', '1.0.5');
 define('JSDEV_WEBP_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('JSDEV_WEBP_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('JSDEV_WEBP_PLUGIN_BASENAME', plugin_basename(__FILE__));
@@ -438,7 +438,7 @@ function jsdev_simple_webp_activate() {
  */
 add_filter('plugin_action_links_' . JSDEV_WEBP_PLUGIN_BASENAME, 'jsdev_simple_webp_add_action_links');
 function jsdev_simple_webp_add_action_links($links) {
-    $settings_link = '<a href="' . admin_url('options-general.php?page=jsdev-simple-webp-converter') . '">Settings</a>';
+    $settings_link = '<a href="' . admin_url('tools.php?page=jsdev-simple-webp-converter') . '">Settings</a>';
     array_unshift($links, $settings_link);
     return $links;
 }

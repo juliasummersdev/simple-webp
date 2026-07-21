@@ -13,8 +13,8 @@ if (!defined('ABSPATH')) {
  */
 add_action('admin_enqueue_scripts', 'jsdev_simple_webp_enqueue_admin_styles');
 function jsdev_simple_webp_enqueue_admin_styles($hook) {
-    // Only load on our settings page
-    if ($hook === 'settings_page_jsdev-simple-webp-converter') {
+    // Only load on our settings page (now under Tools menu)
+    if ($hook === 'tools_page_jsdev-simple-webp-converter') {
         wp_enqueue_style(
             'jsdev-webp-admin',
             JSDEV_WEBP_PLUGIN_URL . 'assets/css/admin.css',
@@ -39,8 +39,8 @@ function jsdev_simple_webp_enqueue_admin_styles($hook) {
  */
 add_action('admin_enqueue_scripts', 'jsdev_simple_webp_enqueue_admin_scripts');
 function jsdev_simple_webp_enqueue_admin_scripts($hook) {
-    // Only load on our settings page
-    if ($hook === 'settings_page_jsdev-simple-webp-converter') {
+    // Only load on our settings page (now under Tools menu)
+    if ($hook === 'tools_page_jsdev-simple-webp-converter') {
         wp_enqueue_script(
             'jsdev-webp-admin',
             JSDEV_WEBP_PLUGIN_URL . 'assets/js/admin.js',

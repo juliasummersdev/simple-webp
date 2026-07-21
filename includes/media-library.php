@@ -105,16 +105,30 @@ function jsdev_simple_webp_add_attachment_field($form_fields, $post) {
     $html = '<div class="jsdev-webp-attachment-field">';
 
     if (file_exists($webp_file)) {
-        // Show conversion status
+        // Show conversion status - ONLY for full/original size
         $original_size = filesize($original_file);
         $webp_size = filesize($webp_file);
         $saved = $original_size - $webp_size;
         $saved_percent = $original_size > 0 ? round(($saved / $original_size) * 100, 1) : 0;
 
+        // Custom size formatting with 2 decimal places
+        $format_size = function($bytes) {
+            if ($bytes < 1024) {
+                return $bytes . ' B';
+            } elseif ($bytes < 1048576) {
+                return round($bytes / 1024, 2) . ' KB';
+            } elseif ($bytes < 1073741824) {
+                return round($bytes / 1048576, 2) . ' MB';
+            } else {
+                return round($bytes / 1073741824, 2) . ' GB';
+            }
+        };
+
         $html .= '<p style="color: #28a745; font-weight: bold; margin: 0 0 10px 0;">✓ WebP version exists</p>';
-        $html .= '<p style="margin: 0 0 10px 0;"><strong>Original:</strong> ' . size_format($original_size) . '<br>';
-        $html .= '<strong>WebP:</strong> ' . size_format($webp_size) . '<br>';
-        $html .= '<strong>Saved:</strong> ' . size_format($saved) . ' (' . $saved_percent . '%)</p>';
+        $html .= '<p style="margin: 0 0 10px 0;"><strong>Original:</strong> ' . $format_size($original_size) . '<br>';
+        $html .= '<strong>WebP:</strong> ' . $format_size($webp_size) . '<br>';
+        $html .= '<strong>Saved:</strong> ' . $format_size($saved) . ' (' . $saved_percent . '%)</p>';
+        $html .= '<p style="margin: 0 0 10px 0; font-size: 11px; color: #666;"><em>Showing full-size image only</em></p>';
         $html .= '<button type="button" class="button jsdev-webp-reconvert-attachment" data-attachment-id="' . esc_attr($post->ID) . '">Regenerate WebP</button>';
     } else {
         $html .= '<p style="color: #dc3545; margin: 0 0 10px 0;">✗ No WebP version found</p>';

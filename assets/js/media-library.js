@@ -49,11 +49,53 @@
                 success: function(response) {
                     if (response.success) {
                         if (isModal) {
-                            // Show success message in modal
-                            resultContainer.html('<div class="notice notice-success inline"><p>' + response.data.message + '</p></div>');
+                            // Get ONLY the full-size image file sizes (not all sizes combined)
+                            let fullOriginalSize = 0;
+                            let fullWebPSize = 0;
+
+                            if (response.data.results && response.data.results.full) {
+                                const fullResult = response.data.results.full;
+                                if (fullResult.success) {
+                                    fullOriginalSize = parseInt(fullResult.original_size) || 0;
+                                    fullWebPSize = parseInt(fullResult.webp_size) || 0;
+                                }
+                            }
+
+                            // Format file sizes
+                            const formatSize = function(bytes) {
+                                if (bytes === 0) return '0 B';
+                                const k = 1024;
+                                const sizes = ['B', 'KB', 'MB', 'GB'];
+                                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+                            };
+
+                            // Calculate savings
+                            const saved = fullOriginalSize - fullWebPSize;
+                            const savedPercent = fullOriginalSize > 0 ? ((saved / fullOriginalSize) * 100).toFixed(1) : 0;
+
+                            // Show simple success message
+                            let successHtml = '<div class="notice notice-success inline"><p><strong>Success!</strong> ' + response.data.message + '</p></div>';
+
+                            resultContainer.html(successHtml);
 
                             // Update button state
-                            button.prop('disabled', false).text('Reconvert to WebP');
+                            button.prop('disabled', false).text('Regenerate WebP');
+
+                            // Update the static display above the button with new file sizes (full-size only)
+                            if (fullOriginalSize > 0) {
+                                // Find the paragraph with file sizes (it's the second <p> in the parent div)
+                                const parentDiv = button.closest('.jsdev-webp-attachment-field');
+                                const sizeParagraph = parentDiv.find('p').eq(1);
+
+                                if (sizeParagraph.length) {
+                                    sizeParagraph.html(
+                                        '<strong>Original:</strong> ' + formatSize(fullOriginalSize) + '<br>' +
+                                        '<strong>WebP:</strong> ' + formatSize(fullWebPSize) + '<br>' +
+                                        '<strong>Saved:</strong> ' + formatSize(saved) + ' (' + savedPercent + '%)'
+                                    );
+                                }
+                            }
                         } else {
                             // Update the status cell in list view
                             resultContainer.html('<span style="color: #28a745; font-weight: bold;">✓ Converted</span><br><small style="color: #666;">' + response.data.message + '</small>');
@@ -224,7 +266,7 @@
                     },
                     success: function(response) {
                         if (response.success) {
-                            // Show success message
+                            // Show simple success message
                             resultContainer.html('<div style="padding: 10px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; color: #155724; margin-top: 10px;"><strong>Success!</strong> ' + response.data.message + '</div>');
                             button.prop('disabled', false).text('Reconvert to WebP');
                         } else {
