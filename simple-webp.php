@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Simple WebP Converter
+ * Plugin Name: Simple WebP
  * Plugin URI: https://juliasummers.dev
  * Description: Automatically converts uploaded images (JPG/PNG) to WebP and serves WebP in place of JPG/PNG throughout your site.
  * Version: 0.1
@@ -8,7 +8,7 @@
  * Author URI: https://juliasummers.dev
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: jsdev-simple-webp-converter
+ * Text Domain: jsdev-simple-webp
  * Requires at least: 5.8
  * Requires PHP: 7.4
  */
