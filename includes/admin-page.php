@@ -13,9 +13,9 @@ if (!defined('ABSPATH')) {
  */
 add_action('admin_menu', 'jsdev_simple_webp_add_admin_menu');
 function jsdev_simple_webp_add_admin_menu() {
-    add_management_page(
-        'Simple WebP Converter',
-        'WebP Converter',
+    add_options_page(
+        'Simple WebP',
+        'Simple WebP',
         'manage_options',
         'jsdev-simple-webp-converter',
         'jsdev_simple_webp_render_admin_page'

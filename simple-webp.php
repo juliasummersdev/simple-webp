@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Simple WebP
- * Plugin URI: https://juliasummers.dev
+ * Plugin URI: https://github.com/juliasummersdev/simple-webp
  * Description: Automatically converts uploaded images (JPG/PNG) to WebP and serves WebP in place of JPG/PNG throughout your site.
  * Version: 0.1
  * Author: Julia Summers
@@ -438,8 +438,26 @@ function jsdev_simple_webp_activate() {
  */
 add_filter('plugin_action_links_' . JSDEV_WEBP_PLUGIN_BASENAME, 'jsdev_simple_webp_add_action_links');
 function jsdev_simple_webp_add_action_links($links) {
-    $settings_link = '<a href="' . admin_url('tools.php?page=jsdev-simple-webp-converter') . '">Settings</a>';
+    $settings_link = '<a href="' . admin_url('options-general.php?page=jsdev-simple-webp-converter') . '">Settings</a>';
     array_unshift($links, $settings_link);
+    return $links;
+}
+
+/**
+ * Modify plugin row meta to open links in new window
+ */
+add_filter('plugin_row_meta', 'jsdev_simple_webp_modify_plugin_row_meta', 10, 2);
+function jsdev_simple_webp_modify_plugin_row_meta($links, $file) {
+    if ($file === JSDEV_WEBP_PLUGIN_BASENAME) {
+        // Make all links open in new window
+        $links = array_map(function($link) {
+            // Add target="_blank" to links that don't already have it
+            if (strpos($link, 'target=') === false && strpos($link, '<a ') !== false) {
+                $link = str_replace('<a ', '<a target="_blank" ', $link);
+            }
+            return $link;
+        }, $links);
+    }
     return $links;
 }
 
